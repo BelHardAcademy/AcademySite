@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Администрирование</title>
+    <link href="../css/s_bis.css"rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../slick/slick.css"/>
+    <link rel="stylesheet" href="../slick/slick-theme.css"/>
+    <link rel="stylesheet" href="../css/libs/bootstrap.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <script type="text/javascript" src="../scripts/jquery-3.1.1.min.js"></script>
+    <script src="../scripts/ipaddress.js"></script>
+    <script src="../scripts/getJason.js"></script>
+    <script src="../scripts/get_blocks.js"></script>
+    <script src="../scripts/create_block.js"></script>
+    <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/fill_navigation_menu.js"></script>
+    <script src="../js/underscore-min.js"></script>
+    <link href="../css/style2.css" rel="stylesheet" type="text/css" />
+    <link href="../css/styles-adm.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="../css/style_author.css"/>
+</head>
+
+<body>
+<!--                         header                                                                         -->
+<div class="wrapper">
+    <header>
+        <div class="header">
+            <div class="menu-open"></div>
+            <div class="contact">
+
+                <div class="contact-item contact-ad">
+                    <img src="../Content/img/location.png" width="20" alt="location">
+                    <div class="header-text">г. Минск, пер. 4-ый Загородный, д.56-а
+                    </div>
+                </div>
+                <div class="contact-item contact-em">
+                    <img src="../Content/img/e-mail.png" width="26" alt="location">
+                    <div class="header-text">it-academy@belhard.com
+                        <p>intern@belhard.com</p>
+                    </div>
+                </div>
+                <div class="contact-item contact-tel">
+                    <img src="../Content/img/tel.png" width="20" alt="location">
+                    <div class="header-text" align="right">Учебный отдел: +375(29)54 654 54 <br>
+                        +375(44)54 654 54
+                        </br>Центр стажировок: +375(44)54 248 21</div>
+                </div>
+            </div>
+						
+						<div id="open" >
+							<div class="authorization">
+								<img src="../Content/img/ic_system_exit.png" width="30" alt="Sign out">
+								<div class="header-text" align="center"><span>Выйти</span></div>
+							</div>
+							<div id="hiddAuth" class="hiddenArea"></div>
+            </div>
+						
+						<script>
+							if ( localStorage.getItem('login') != null){ 																	//контроль присутствия пользователя в системе
+								$('.authorization').attr("title", "Вы в системе как " + localStorage.getItem('login'));
+							};
+							
+							$.ajaxSetup({
+								headers: {"token": localStorage.getItem('token')},													//отправка имеющегося token
+								
+								statusCode: { 																															//обработка статуса при истекшем сроке действия token
+									401: function() {
+										alert("Период авторизации истек. Автоизуйтесь еще раз." );
+										$(location).attr('href', '../authorization.html');
+									}
+								}
+							});
+							
+							$(".authorization").click(function(evt) {																			//очистка локального хранилища и переход на главную при нажатии на иконку выхода
+								localStorage.removeItem("login");
+								localStorage.removeItem("token");
+								localStorage.removeItem("address");
+								localStorage.removeItem("role");
+								$(location).attr('href', '../');
+							});//end click authorization
+						</script>
+						
+        </div>
+        <div class="nav">
+            <img src="../Content/img/logo.png" width="144" alt="logo">
+            <ul class="menu" id="navigation_menu"></ul>
+        </div>
+
+        <div class="block1 admin">
+            <div class="block1-title-admin">
+               <!-- <h2 id="block_title_name">ИТ-Академия Белхард</h2>
+                <span class="gray" id="block_title_subname">Ваш входной билет в IT-Индустрию</span> -->
+                <h2 id="block_title_name"></h2>
+                <span class="gray" id="block_title_subname"></span>
+            </div>
+        </div>
+
+    </header>
+</div>
+<script type="text/javascript">
+    function fillPageHeader(pattern) {
+        // Заполняем заголовок и подзаголовок
+        var block_title_name = document.getElementById("block_title_name");
+        var block_title_subname = document.getElementById("block_title_subname");
+        block_title_name.innerText = pattern.page.name;
+        block_title_subname.innerText = pattern.page.subname;
+    }
+    function createHGallery() {}
+    function fillMainContent(pattern) {}
+    loadPage(window.location.pathname);
+</script>
+
+<!--                               Main Content                                       -->
+<div class="main-content">
+    <form action=" ">
+        <div class="redactorButton redactorPagesCreateButton">Создать новую страницу</div>
+
+        <script>
+            var loc = window.location.pathname;
+            var dataTypeCode = loc.substring(loc.lastIndexOf('/') + 6).toLowerCase();
+            pagesFromServList = {};
+
+            $(".redactorPagesCreateButton").on("click", function() {
+                $.ajax({
+                    method:"GET",
+                    url: api + "/api/admin/form/" + dataTypeCode,      
+                    dataType : "text",
+                    success: function(data){
+                        var block = document.createElement("div");
+                        $(block).html(data);
+                        $(".redactorPagesCreateButton").after(block);
+                    }
+                });
+            });
+
+            $.ajax({
+                method:"GET",
+                url: api + "/api/admin/data/" + dataTypeCode,      
+                dataType : "json",
+                success: function (data) { 
+                    var listOfCurrentPages = document.createElement("table");
+                    $(data).each(function(index) {
+                        pagesFromServList[data[index]._id] = data[index];
+                        var listOfCurrentPagesStr = document.createElement("tr");
+                        var templatePagesBlock = document.createElement("tr");
+                        var listOfCurrentPagesCellName = document.createElement("td");
+                        var listOfCurrentPagesCellDelete = document.createElement("td");
+                        var listOfCurrentPagesDeleteButton = document.createElement("div");
+                        var listOfCurrentPagesCellRedact = document.createElement("td");
+                        var listOfCurrentPagesRedactButton = document.createElement("div");
+                        listOfCurrentPagesCellName.innerHTML = (index + 1) + ") " + data[index].name;
+                        listOfCurrentPagesCellName.setAttribute("id" ,data[index]._id);
+                        listOfCurrentPagesDeleteButton.innerHTML = "Удалить";
+                        listOfCurrentPagesRedactButton.innerHTML = "Редактировать";
+                        $(listOfCurrentPagesDeleteButton).addClass("redactorButton redactorPagesDeleteButton");
+                        $(listOfCurrentPagesRedactButton).addClass("redactorButton redactorPagesRedactButton");
+                        $(templatePagesBlock).addClass("templatePagesBlock " + data[index]._id);
+                        $(listOfCurrentPagesStr).append(listOfCurrentPagesCellName);
+                        $(listOfCurrentPagesCellName).after(listOfCurrentPagesDeleteButton);
+                        $(listOfCurrentPagesCellName).after(listOfCurrentPagesRedactButton);
+                        $(listOfCurrentPages).append(listOfCurrentPagesStr);
+                        $(listOfCurrentPages).append(templatePagesBlock);
+                    });
+                    $(".redactorPagesCreateButton").after(listOfCurrentPages);
+
+                    $(".redactorPagesDeleteButton").on("click", function() {
+                        $.ajax({
+                            method:"DELETE",
+                            url: api + "/api/admin/" + dataTypeCode + "/" + $(this).siblings().eq(0).attr("id"),      
+                            dataType : "json",
+                            success: function(){
+                                console.log("Страница удалена");
+                            }
+                        });
+                    });
+
+                    $(".redactorPagesRedactButton").on("click", function() {
+                        var idPageToAdd = $(this).siblings().eq(0).attr("id");
+
+                        $.ajax({
+                            method:"GET",
+                            url: api + "/api/admin/form/" + dataTypeCode,      
+                            dataType : "text",
+                            success: function(data){
+                                var block = document.createElement("div");
+
+                                var template  = _.template(data);
+                                console.log(pagesFromServList[idPageToAdd]);
+                                var pageToAdd = template(pagesFromServList[idPageToAdd]);
+
+                                $("." + idPageToAdd).append(block).html(pageToAdd);
+                            }
+                        });
+                    });
+                }
+            });
+        </script>
+    </form>
+<!--                                 footer                                               -->
+
+<div class="window">
+    <div class="info-footer-block dark-div" align="center">
+        ИТ-Академия <img src="../Content/img/logo.png" width="100" alt="logo"><br>
+        ООО "Европейский центр разработки ПО"<br>
+    </div>
+    <div class="info-footer-block light-div" align="center">
+        &#169; 1994-2016 Группа компаний "Белхард"
+    </div>
+
+</div>
+
+
+<script src="../scripts/header.js"></script>
+</body>
+</html>
