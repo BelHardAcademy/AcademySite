@@ -14,7 +14,7 @@ var jwt             = require('jsonwebtoken');
 function regRoutes(app) {
     app.use(passport.initialize());
 
-    //app.use('/api/admin*', checkAuthenticate);
+    app.use('/api/admin*', checkAuthenticate);
 
     app.get('/favicon.ico', function (req, res){
         res.end('');
@@ -549,7 +549,10 @@ function regRoutes(app) {
     app.post('/oauth/token', oauth2.token);
 
     app.get('/admin:page', function (req, res) {
-        res.sendfile('./public/admin/index.html');
+        checkAuthenticate(req, res, function(){
+            res.sendfile('./public/admin/index.html');
+        });
+
     });
     app.get('/:page', function (req, res) {
         if (req.params.page.toLowerCase() == 'registration.html')
@@ -610,11 +613,9 @@ function checkAuthenticate(req, res, next) {
         });
     } else {
         // if there is no token return an error
-        return res.status(403).send({ 
-            success: false, 
-            message: 'No token provided.' 
-        });
-    }
+        
+    res.redirect('/authorization.html?returnUrl='+req.url);
+    }//res.sendfile('./public/authorization.html');
 };
 
 function isAdmin(req, res, next) {
