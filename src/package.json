@@ -11,6 +11,7 @@
     "express": "^4.16.2",
     "faker": "^3.1.0",
     "fs": "^0.0.1-security",
+    "gulp-install": "^1.1.0",
     "jsonwebtoken": "^7.4.1",
     "method-override": "^2.3.7",
     "mongodb": "^2.2.20",
@@ -28,10 +29,14 @@
     "rebuild": "^0.1.2",
     "winston": "^2.3.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
   "scripts": {
     "test": "test",
-    "start": "node server.js"
+    "start": "node server.js",
+    "gulp": "gulp",
+    "minify": "gulp minify"
   },
   "author": "",
   "license": "ISC"
