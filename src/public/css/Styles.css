@@ -1,0 +1,142 @@
+.content{
+    background: lightgray;
+    max-width: 800px;
+    min-height: 700px;
+    background-size: cover;
+    margin: 0 auto;
+}
+input[type="text"] {
+    background-color: #f3f3f3;
+    border: 1px solid #e7e7e7;
+    height: 30px;
+    color: #b2b2b2;
+    padding: 0 10px;
+    vertical-align: top;
+}
+
+button {
+    color: #fff;
+    background-color: #29c5e6;
+    border: none;
+    height: 32px;
+    font-family: 'Oswald', sans-serif;
+}
+
+
+p {
+    margin: 20px 0;
+}
+
+
+
+form[name="login"] {
+    float: right;
+}
+
+
+.menu {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background: steelblue;
+}
+.menu a {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+.c {
+    color: white;
+    display: inline-block;
+    padding: 5px 15px; /* Поля */
+    text-decoration: none; /* Убираем подчёркивание */
+    /* Цвет текста */
+}
+
+.c:hover {
+     box-shadow: 0 0 5px blue; /* Тень */
+     background: deepskyblue;
+     color: white;
+ }
+
+.d {
+     box-shadow: 0 0 5px blue; /* Тень */
+     background: blueviolet;
+     color: white;
+ }
+
+.menu a.active {
+    background: blue;
+    color: white;
+}
+
+footer {
+    color: steelblue;
+    font-size: 11px;
+    margin: auto;
+    padding: 10px 0;
+    height: 30px;
+}
+
+#footer {
+    margin: auto;
+    padding: 10px 0;
+    height: 90px;
+}
+
+.lay1 {
+    z-index: 1;
+    position: absolute;
+}
+
+.lay2 {
+    z-index: 2;
+    bottom: -100px;
+    left: 110px;
+    position:relative;
+}
+
+.headerMain {
+    width:100%;
+    height: 100px;
+    background: url(../Content/img/footer.png) 100% 100% no-repeat; /* Добавляем фон */
+    background-size: contain; /* Масштабируем фон */
+}
+
+.header {
+    width:100%;
+    height: 50px;
+    background: mediumslateblue;
+}
+
+.courseTD {
+    height: 200px;
+    width: 150px;
+    text-align: center;
+    background-color: #29c5e6;
+}
+
+.fixed {
+    position: fixed;
+}
+
+#galery {
+    margin: auto;
+    border: 2px;
+}
+
+#galery td {
+    width: 300px;
+    height: 200px;
+    border: 2px solid black;
+}
+
+.leftarrow {
+    width: 70px;
+    height: 50px;
+}
+
+.rightarrow {
+
+}

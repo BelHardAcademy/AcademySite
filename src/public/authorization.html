@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link href="../css/s_bis.css"rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../slick/slick.css"/>
+    <link rel="stylesheet" href="../slick/slick-theme.css"/>
+    <link rel="stylesheet" href="../css/libs/bootstrap.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <script type="text/javascript" src="../scripts/jquery-3.1.1.min.js"></script>
+    <script src="../scripts/ipaddress.js"></script>
+    <script src="../scripts/getJason.js"></script>
+    <script src="../scripts/get_blocks.js"></script>
+    <script src="../scripts/create_block.js"></script>
+    <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/fill_navigation_menu.js"></script>
+    <script src="../js/underscore-min.js"></script>
+    <link href="../css/style2.css" rel="stylesheet" type="text/css" />
+    <link href="../css/styles-adm.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="css/style_author.css"/>
+</head>
+
+<body>
+<!--                         header                                                                         -->
+<div class="wrapper">
+    <header>
+        <div class="header">
+            <div class="menu-open"></div>
+            <div class="contact">
+
+                <div class="contact-item contact-ad">
+                    <img src="../Content/img/location.png" width="20" alt="location">
+                    <div class="header-text">г. Минск, пер. 4-ый Загородный, д.56-а
+                    </div>
+                </div>
+                <div class="contact-item contact-em">
+                    <img src="../Content/img/e-mail.png" width="26" alt="location">
+                    <div class="header-text">it-academy@belhard.com
+                        <p>intern@belhard.com</p>
+                    </div>
+                </div>
+                <div class="contact-item contact-tel">
+                    <img src="../Content/img/tel.png" width="20" alt="location">
+                    <div class="header-text" align="right">Учебный отдел: +375(29)54 654 54 <br>
+                        +375(44)54 654 54
+                        </br>Центр стажировок: +375(44)54 248 21</div>
+                </div>
+            </div>
+        </div>
+        <div class="nav">
+            <a href="/home"><img src="../Content/img/logo.png" width="144" alt="logo"></a>
+            <ul class="menu" id="navigation_menu"></ul>
+        </div>
+    </header>
+</div>
+
+
+
+<!--                               Main Content                                       -->
+
+	<div class="main-content">
+      <div class="formwrapper">
+				<h1>Авторизация</h1>
+        <form id="authForm">
+					<p>
+						<label for="login">Логин:</label>
+						<input type="email" name="login" id="login" required>
+					</p>
+					<p>
+						<label for="password">Пароль: </label>
+						<input type="password" name="password" id="password" required>
+					</p>
+					<p class="button">
+						<input type="submit" name="button" id="authorizationButton" value="Войти" >
+					</p>
+				
+					<div class="header-text" align="center">Войти с помощью</div>
+					<div id="uLogin"></div>
+					<div class="header-text" align="center">Либо <a href="registration.html">зарегистрироваться</a></div>
+				</form>
+	</div>
+	
+	<script>
+						var url = window.location.hostname;
+						$("#uLogin").attr("data-ulogin", "display=panel;theme=classic;fields=first_name,last_name;providers=vkontakte,odnoklassniki,mailru,facebook;hidden=google,yandex,linkedin,wargaming;redirect_uri=http%3A%2F%2F"+ url +";mobilebuttons=0;");
+						
+						$("#authForm").submit(function() {													//процесс авторизации
+							var formData = {																					//сбор данных из формы в формате JSON
+								"login" : document.getElementById("login").value,
+								"password" : document.getElementById("password").value
+							};
+							
+							$.post('/api/login',formData,processData);
+							
+							function processData(data) {														//обработка ответа сервера
+									if (data.status === 0) {
+										$('.formwrapper').html('<h2>Добро пожаловать!</h2>');
+										setTimeout(function() {
+											localStorage.setItem('login', data.user.login);
+											localStorage.setItem('token', data.token);
+											localStorage.setItem('address', data.redirect);
+											localStorage.setItem('role', data.role);
+											$(location).attr('href', data.redirect);
+										}, 300);
+									} else {
+										$('.msg').remove();
+										$('.button').before('<p class="msg">' + data.error + '. <br>Попробуйте еще раз.</p>');
+									}
+								}; // end processData
+							
+							return false;
+							
+						});//end submit
+					</script>
+<!--                                 footer                                               -->
+<div class="window">
+    <div class="info-footer-block dark-div" align="center">
+        ИТ-Академия <img src="../Content/img/logo.png" width="100" alt="logo"><br>
+        ООО "Европейский центр разработки ПО"<br>
+    </div>
+    <div class="info-footer-block light-div" align="center">
+        &#169; 1994-2016 Группа компаний "Белхард"
+    </div>
+
+</div>
+
+
+<script src="../scripts/header.js"></script>
+</body>
+</html>

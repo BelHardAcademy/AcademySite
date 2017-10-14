@@ -1,0 +1,10 @@
+@charset "utf-8";
+.inline{
+	display:inline-block;
+	}
+.link.link_open-block{
+	position:static;
+	margin:30px auto;
+	}
+
+ 

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактор</title>
+  <script type="text/javascript" src="../scripts/jquery-3.1.1.min.js"></script>
+  <script src="../scripts/ipaddress.js"></script>
+  <script src="../js/underscore-min.js"></script> 
+</head>
+<body>
+  <script>
+    var cssLink = document.createElement("link");
+    $(cssLink).attr("href", "styles.css");
+    $(cssLink).attr("rel", "stylesheet");
+    $("head").append(cssLink);
+  </script>
+  <form action=" ">
+    <div>
+      <h1>РЕДАКТОР САЙТА</h1>
+	   <div class="redactorButton redactorPagesCreateButton">Создать новую</div>
+    
+    
+	<script>
+    var dataTypeCode = "gallery",
+        pagesFromServList = {};
+
+    $(".redactorPagesCreateButton").on("click", function() {
+      $.ajax({
+        method:"GET",
+        url: api + "/api/admin/form/" + dataTypeCode,      
+        dataType : "text",
+        success: function(data){
+          var emptyTemplate = {
+            "name": "",
+            "subname": "",
+            "link": "",
+            "_id": ""
+          }
+
+          var block = document.createElement("div");
+          var template  = _.template(data);
+          var pageToAdd = template(emptyTemplate);
+
+          $(block).html(pageToAdd);
+          $(".redactorPagesCreateButton").after(block);
+          
+        }
+      });
+    });
+
+		$.ajax({
+          method:"GET",
+          url: api + "/api/admin/data/" + dataTypeCode,      
+          dataType : "json",
+          success: function (data) { 
+            
+            var listOfCurrentPages = document.createElement("table");
+            $(data).each(function(index) {
+              pagesFromServList[data[index]._id] = data[index];
+              var listOfCurrentPagesStr = document.createElement("tr");
+              var templatePagesBlock = document.createElement("tr");
+              var listOfCurrentPagesCellName = document.createElement("td");
+              var listOfCurrentPagesCellDelete = document.createElement("td");
+              var listOfCurrentPagesDeleteButton = document.createElement("div");
+              var listOfCurrentPagesCellRedact = document.createElement("td");
+              var listOfCurrentPagesRedactButton = document.createElement("div");
+              listOfCurrentPagesCellName.innerHTML = (index + 1) + ") " + data[index].name;
+              listOfCurrentPagesCellName.setAttribute("id" ,data[index]._id);
+              listOfCurrentPagesDeleteButton.innerHTML = "Удалить";
+              listOfCurrentPagesRedactButton.innerHTML = "Редактировать";
+              $(listOfCurrentPagesDeleteButton).addClass("redactorButton redactorPagesDeleteButton");
+              $(listOfCurrentPagesRedactButton).addClass("redactorButton redactorPagesRedactButton");
+              $(templatePagesBlock).addClass("templatePagesBlock " + data[index]._id);
+              $(listOfCurrentPagesStr).append(listOfCurrentPagesCellName);
+              $(listOfCurrentPagesCellName).after(listOfCurrentPagesDeleteButton);
+              $(listOfCurrentPagesCellName).after(listOfCurrentPagesRedactButton);
+              $(listOfCurrentPages).append(listOfCurrentPagesStr);
+              $(listOfCurrentPages).append(templatePagesBlock);
+            });
+            $(".redactorPagesCreateButton").after(listOfCurrentPages);
+
+             $(".redactorPagesDeleteButton").on("click", function() {
+              $.ajax({
+              method:"DELETE",
+              url: api + "/api/admin/" + dataTypeCode + "/" + $(this).siblings().eq(0).attr("id"),      
+              dataType : "json",
+              success: function(){
+                console.log("Страница удалена");
+                }
+              });
+            });
+
+            $(".redactorPagesRedactButton").on("click", function() {
+              var idPageToAdd = $(this).siblings().eq(0).attr("id");
+              
+              $.ajax({
+              method:"GET",
+              url: api + "/api/admin/form/" + dataTypeCode,      
+              dataType : "text",
+              success: function(data){
+
+                var block = document.createElement("div");
+                var template  = _.template(data);
+                var pageToAdd = template(pagesFromServList[idPageToAdd]);
+
+                $("." + idPageToAdd).append(block).html(pageToAdd);
+                }
+              });
+            });
+          }
+        });
+    
+	</script>
+    
+    
+</div>
+   </form>
+</body>
+</html>

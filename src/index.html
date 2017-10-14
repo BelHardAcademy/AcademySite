@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+</head>
+
+<header>
+<body>
+<div class="content">
+    <script>
+	$(document).ajaxError(function (e, xhr) {
+		alert('error');
+	});
+
+	var api = 'http://localhost:1337';
+
+        $.ajax({
+          url: api + '/api1',
+          type: "post",
+          dataType : "json",
+          success: function () { alert('success');}
+   	});
+    </script>
+</div>
+</body>
+
+</html>
