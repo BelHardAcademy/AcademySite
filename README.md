@@ -16,3 +16,5 @@ Site of BelHard Academy
 6) Run command "npm install".
 7) Run command "npm start".
 8) Open link http://localhost:85.
+
+For working with repository use GitFlow (http://nvie.com/posts/a-successful-git-branching-model/)
