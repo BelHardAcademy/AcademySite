@@ -212,18 +212,18 @@ function regRoutes(app) {
 
         });*/
 
-    app.route('/api/data/:type/:id')
-        .get(function(req, res) {
-            data.getDataById(
-                'modules',
-                req.params.id,
-                res,
-                function(rs, dt) {
-                    return rs.send(dt);
-                }
-            );
+    // app.route('/api/data/:type/:id')
+    //     .get(function(req, res) {
+    //         data.getDataById(
+    //             'modules',
+    //             req.params.id,
+    //             res,
+    //             function(rs, dt) {
+    //                 return rs.send(dt);
+    //             }
+    //         );
 
-        });
+    //     });
 
     app.post('/api/reqCourse', function(req, res) {
         var reqc = {};
