@@ -28,7 +28,9 @@
     "rebuild": "^0.1.2",
     "winston": "^2.3.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
   "scripts": {
     "test": "test",
     "start": "node server.js"
