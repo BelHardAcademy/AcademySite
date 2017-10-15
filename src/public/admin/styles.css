@@ -238,3 +238,7 @@ transform: rotate(-45deg);
   border-bottom: 1px solid #999;
   margin-bottom: 10px;
 }
+.send-zap2 {
+  position: none;
+  margin-left: 0 auto;
+}
