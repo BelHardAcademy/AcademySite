@@ -58,3 +58,4 @@ typings/
 .env
 
 src/package-lock.json
+src/.vscode/

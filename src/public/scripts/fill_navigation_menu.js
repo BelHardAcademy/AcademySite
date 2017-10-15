@@ -6,7 +6,6 @@
 (function ($) {
     $.fn.fill_navigation_menu = function (menu_elements) {
         var menu_ul = document.getElementById("navigation_menu");
-
         $(menu_elements.menu).each(function( index )
         {
 
