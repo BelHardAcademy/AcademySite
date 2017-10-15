@@ -553,11 +553,18 @@ function regRoutes(app) {
     });
 
     app.get('/:page', function (req, res) {
+        var pagePath;
         if (req.params.page.toLowerCase() == 'registration.html')
-            res.sendfile('./public/registration.html');
+            pagePath = './public/registration.html';
         else if (req.params.page.toLowerCase() == 'authorization.html')
-            res.sendfile('./public/authorization.html');
-        else res.sendfile('./public/index.html');
+            pagePath = './public/authorization.html';
+        else pagePath = './public/index.html';
+
+        fs.readFile(pagePath, 'utf8', function(error, content){
+            res.status(200);
+            res.write(content.replace('{{currentYear}}', new Date().getFullYear()));
+            res.end();
+        });
     });
 
 }
