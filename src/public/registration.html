@@ -73,12 +73,14 @@
 						<input type="email" name="login" id="login" required>
 					</p>
 					<p>
-						<label for="password">Пароль: </label>
-						<input type="password" name="password" id="password" required onchange="validatePass(this)">
+						<label for="password">Пароль: 
+                            <span class="pwStrengthMes">Пароль должен быть от 6 до 16 символов, содержать хотя бы одну цифру, букву в нижнем и верхнем регистре, любой из символов ! @ # $ & . , - _</span>
+                        </label>
+						<input type="password" name="password" id="password" required pattern="^(?=.[A-Z])(?=.[!@#$&.,-_])(?=.[0-9])(?=.*[a-z]).{6,16}$" onchange="validatePass(this.value)">
 					</p>
 					<p>
 						<label for="password2">Повторите пароль: </label>
-						<input type="password" name="password2" id="password2" required onchange="validatePass(this)">
+						<input type="password" name="password2" id="password2" required pattern="^(?=.[A-Z])(?=.[!@#$&.,-_])(?=.[0-9])(?=.*[a-z]).{6,16}$" onchange="validatePass(this.value)">
 					</p>
 					<div id="captWrap">
 						<div id="capt" ></div>
@@ -95,7 +97,7 @@
                                 type: "GET",
                                 dataType : "json",
                                 success:  function (data) {
-																		console.log("+++");
+									console.log("+++");
                                     $('#capt').html('<img src="'+data.data+'">');
                                 }
                             });
@@ -110,11 +112,16 @@
                     </script>
 				</form>
 	</div>
-	
+    
+    
+
+
 	<script>
 		
-		function validatePass(input){																						//проверка правильности повторения пароля
-			if ($('#password').val() != $('#password2').val()){
+		function validatePass(input){
+    //проверка правильности повторения пароля
+
+ 			if ($('#password').val() != $('#password2').val()){
 				$('#password2')[0].setCustomValidity("Неправильный повтор пароля!");
 			} else {
 				$('#password2')[0].setCustomValidity("");
@@ -129,8 +136,9 @@
 				login : document.getElementById("login").value,
 				password : document.getElementById("password").value
 			};
-			
-			$.post("/api/user/register",formData,processData);
+            
+
+            $.post("/api/user/register",formData,processData);
 			
 			function processData(data) {																					//обработка ответа сервера
 				if (data.status === 0) {																						//успешная регистрация
