@@ -13,17 +13,17 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$("#registrationButton").submit(function() { 				//registration
+	$(".registrationButton").submit(function() { 				//registration
 		var formData = $(this).serialize();
 		$.post('',formData,processData).error('Error');
 		function processData(data) {
 			if (data==='pass') {
-				$('.formwrapper').html('<h1>Вы зарегистрированы!</h1>');
+				$('.formwrapper').html('<h1>пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!</h1>');
 				setTimeout(function() {
 					$(location).attr('href', "authorization.html");
 				}, 300);
 			} else {
-				$('.formwrapper').html('<h1>Произошла ошибка. Попробуйте еще раз.</h1>');
+				$('.formwrapper').html('<h1>пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ.</h1>');
 				setTimeout(function() {
 					$(location).attr('href', "registration.html");
 				}, 300);

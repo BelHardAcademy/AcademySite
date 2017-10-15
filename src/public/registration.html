@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../slick/slick-theme.css"/>
     <link rel="stylesheet" href="../css/libs/bootstrap.css"/>
     <link rel="stylesheet" href="../css/main.css"/>
-    <script type="text/javascript" src="../scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="./js/libs.min.js"></script>
     <script src="../scripts/ipaddress.js"></script>
     <script src="../scripts/getJason.js"></script>
     <script src="../scripts/get_blocks.js"></script>
@@ -59,7 +59,7 @@
 	<div class="main-content">
       <div class="formwrapper">
 				<h1>Регистрация</h1>
-        <form id="zap2">
+        <form id="zap2" name="regForm">
 					<p>
 						<label for="name">Имя:</label>
 						<input type="text" name="name" id="name" required autofocus pattern="\D+">
@@ -86,7 +86,7 @@
 						<div id="update-capcha">Обновить</div>
 					</div>
 					<p class="button">
-						<input type="submit" name="button" id="send-zap2" value="Отправить" >
+						<input type="submit" name="button" class="registrationButton" id="send-zap2" value="Отправить" >
 					</p>
 					<script type="text/javascript">
                         function getCaptcha (){
@@ -122,7 +122,7 @@
 		};//end validatePass
 		
 		
-		$("#regForm").submit(function() {																				//процесс регистрации
+		$("form[name=regForm]").submit(function() {																				//процесс регистрации
 			var formData = {																											//сбор данных из формы в формате JSON
 				name : document.getElementById("name").value,
 				lastName : document.getElementById("lastName").value,
