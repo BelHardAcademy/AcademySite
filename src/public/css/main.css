@@ -380,3 +380,14 @@ div.info-footer-block {
 .block-container {
 	padding: 30px;
 }
+
+
+/* password strength message */
+#zap2 span.pwStrengthMes{
+color: rgba(0,0,0,0.5)!important;
+position: absolute;
+font-size: 11px;
+width: 300px;
+right: 5%;
+
+}

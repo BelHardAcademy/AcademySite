@@ -222,7 +222,6 @@ function regRoutes(app) {
                     return rs.send(dt);
                 }
             );
-
         });
 
     app.post('/api/reqCourse', function(req, res) {

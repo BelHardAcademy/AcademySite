@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../slick/slick-theme.css"/>
     <link rel="stylesheet" href="../css/libs/bootstrap.css"/>
     <link rel="stylesheet" href="../css/main.css"/>
-    <script type="text/javascript" src="../scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="./js/libs.min.js"></script>
     <script src="../scripts/ipaddress.js"></script>
     <script src="../scripts/getJason.js"></script>
     <script src="../scripts/get_blocks.js"></script>
@@ -59,7 +59,7 @@
 	<div class="main-content">
       <div class="formwrapper">
 				<h1>Регистрация</h1>
-        <form id="zap2">
+        <form id="zap2" name="regForm">
 					<p>
 						<label for="name">Имя:</label>
 						<input type="text" name="name" id="name" required autofocus pattern="\D+">
@@ -73,12 +73,14 @@
 						<input type="email" name="login" id="login" required>
 					</p>
 					<p>
-						<label for="password">Пароль: </label>
-						<input type="password" name="password" id="password" required onchange="validatePass(this)">
+						<label for="password">Пароль: 
+                            <span class="pwStrengthMes">Пароль должен быть от 6 до 16 символов, содержать хотя бы одну цифру, букву в нижнем и верхнем регистре, любой из символов ! @ # $ & . , - _</span>
+                        </label>
+						<input type="password" name="password" id="password" required pattern="^(?=.[A-Z])(?=.[!@#$&.,-_])(?=.[0-9])(?=.*[a-z]).{6,16}$" onchange="validatePass(this.value)">
 					</p>
 					<p>
 						<label for="password2">Повторите пароль: </label>
-						<input type="password" name="password2" id="password2" required onchange="validatePass(this)">
+						<input type="password" name="password2" id="password2" required pattern="^(?=.[A-Z])(?=.[!@#$&.,-_])(?=.[0-9])(?=.*[a-z]).{6,16}$" onchange="validatePass(this.value)">
 					</p>
 					<div id="captWrap">
 						<div id="capt" ></div>
@@ -86,7 +88,7 @@
 						<div id="update-capcha">Обновить</div>
 					</div>
 					<p class="button">
-						<input type="submit" name="button" id="send-zap2" value="Отправить" >
+						<input type="submit" name="button" class="registrationButton" id="send-zap2" value="Отправить" >
 					</p>
 					<script type="text/javascript">
                         function getCaptcha (){
@@ -95,7 +97,7 @@
                                 type: "GET",
                                 dataType : "json",
                                 success:  function (data) {
-																		console.log("+++");
+									console.log("+++");
                                     $('#capt').html('<img src="'+data.data+'">');
                                 }
                             });
@@ -110,11 +112,16 @@
                     </script>
 				</form>
 	</div>
-	
+    
+    
+
+
 	<script>
 		
-		function validatePass(input){																						//проверка правильности повторения пароля
-			if ($('#password').val() != $('#password2').val()){
+		function validatePass(input){
+    //проверка правильности повторения пароля
+
+ 			if ($('#password').val() != $('#password2').val()){
 				$('#password2')[0].setCustomValidity("Неправильный повтор пароля!");
 			} else {
 				$('#password2')[0].setCustomValidity("");
@@ -122,15 +129,16 @@
 		};//end validatePass
 		
 		
-		$("#regForm").submit(function() {																				//процесс регистрации
+		$("form[name=regForm]").submit(function() {																				//процесс регистрации
 			var formData = {																											//сбор данных из формы в формате JSON
 				name : document.getElementById("name").value,
 				lastName : document.getElementById("lastName").value,
 				login : document.getElementById("login").value,
 				password : document.getElementById("password").value
 			};
-			
-			$.post("/api/user/register",formData,processData);
+            
+
+            $.post("/api/user/register",formData,processData);
 			
 			function processData(data) {																					//обработка ответа сервера
 				if (data.status === 0) {																						//успешная регистрация
