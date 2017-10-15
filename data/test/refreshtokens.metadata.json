@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"test.refreshtokens"},{"v":2,"unique":true,"key":{"token":1},"name":"token_1","background":true,"ns":"test.refreshtokens"}]}
