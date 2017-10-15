@@ -548,17 +548,22 @@ function regRoutes(app) {
     app.post('/oauth/token', oauth2.token);
 
     app.get('/admin:page', function (req, res) {
-        checkAuthenticate(req, res, function(){
-            res.sendfile('./public/admin/index.html');
-        });
-
+        res.sendfile('./public/admin/index.html');
     });
+
     app.get('/:page', function (req, res) {
+        var pagePath;
         if (req.params.page.toLowerCase() == 'registration.html')
-            res.sendfile('./public/registration.html');
+            pagePath = './public/registration.html';
         else if (req.params.page.toLowerCase() == 'authorization.html')
-            res.sendfile('./public/authorization.html');
-        else res.sendfile('./public/index.html');
+            pagePath = './public/authorization.html';
+        else pagePath = './public/index.html';
+
+        fs.readFile(pagePath, 'utf8', function(error, content){
+            res.status(200);
+            res.write(content.replace('{{currentYear}}', new Date().getFullYear()));
+            res.end();
+        });
     });
 
 }
@@ -597,7 +602,7 @@ function hashedPassword(userpassword) {
 };
 
 function checkAuthenticate(req, res, next) {
-    const token = req.headers['belhard-access-token'];
+    const token = req.headers['token'];
     // decode token
     if (token) {
         // verifies secret and checks exp
@@ -611,10 +616,11 @@ function checkAuthenticate(req, res, next) {
             }
         });
     } else {
-        // if there is no token return an error
-        
-    res.redirect('/authorization.html?returnUrl='+req.url);
-    }//res.sendfile('./public/authorization.html');
+        return res.status(401).send({ 
+            success: false, 
+            message: 'No token provided.' 
+        });
+    }
 };
 
 function isAdmin(req, res, next) {
