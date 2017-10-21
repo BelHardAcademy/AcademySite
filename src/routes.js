@@ -552,6 +552,18 @@ function regRoutes(app) {
             );
             });
 
+    app.route('/api/admin/users')
+        .get(function(req, res) {
+            data.getData(
+                'siteusers',
+                {},
+                res,
+                function(rs, dt) {
+                    return rs.send(dt);
+                }
+            );
+        });        
+
     app.post('/oauth/token', oauth2.token);
 
     app.get('/admin:page', function (req, res) {
