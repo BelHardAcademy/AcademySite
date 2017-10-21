@@ -12,12 +12,16 @@
             div.className = "photogalery-slide-content";
 
             var img = document.createElement("img");
+            
             img.src = getServerIp() + galery_links[index];
-
+            $(div).attr('data-mfp-src', img.src);
             div.appendChild(img);
 
             footer_photogalery.appendChild(div);
         });
+           
+    
+
     }
 })(jQuery);
 
