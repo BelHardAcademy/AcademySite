@@ -562,9 +562,15 @@ function regRoutes(app) {
                     return rs.send(dt);
                 }
             );
-        });        
+        });  
+        
+        
 
     app.post('/oauth/token', oauth2.token);
+
+    app.get('/adminUsers', function (req, res) {
+        res.sendfile('./public/admin/users.html');
+    });
 
     app.get('/admin:page', function (req, res) {
         res.sendfile('./public/admin/index.html');
