@@ -107,6 +107,13 @@ function regRoutes(app) {
                 return res.send(captcha.getCaptcha(w, h));
             else return res.send();
         })
+        .post(function(req, res) {
+            var w = parseInt(req.query.width);
+            var h = parseInt(req.query.height);
+            if (w && h)
+                return res.send(captcha.getCaptcha(w, h));
+            else return res.send();
+        })
         .post(function(req, res){
             return res.send(captcha.checkCaptcha(req.body.crypto, req.body.data));
         });
