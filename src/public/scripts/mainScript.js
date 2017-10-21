@@ -69,6 +69,16 @@ $(document).ready(function(){
         autoplay: autoFooter,
         autoplaySpeed:intervalFooter,
     });
+    $('.slick-track').magnificPopup({
+        delegate: 'div',
+        type: 'image',
+        gallery: {
+            enabled: true
+        }
+    });
+    
+
+   
 
 });
 
