@@ -10,8 +10,54 @@ $(document).ready(function(){
 				searchControlProvider: 'yandex#search'
 			}),
 			myPlacemark = new ymaps.Placemark(myMap.getCenter());
-		myMap.geoObjects.add(myPlacemark);
-	});
+        myMap.geoObjects.add(myPlacemark);
+        
+            // Задаём точки мультимаршрута.
+            var pointA = [53.906552, 27.510278],
+                pointB = "Метро Молодежная, Минск",
+                /**
+                 * Создаем мультимаршрут.
+                 * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/multiRouter.MultiRoute.xml
+                 */
+                multiRoute = new ymaps.multiRouter.MultiRoute({
+                    referencePoints: [
+                        pointA,
+                        pointB
+                    ],
+                    params: {
+                        //Тип маршрутизации - пешеходная маршрутизация.
+                        routingMode: 'pedestrian'
+                    }
+                }, {
+                    // Автоматически устанавливать границы карты так, чтобы маршрут был виден целиком.
+                    boundsAutoApply: true
+                });
+                myMap.geoObjects.add(multiRoute);
+        
+            
+        
+        
+       
+    
+    });
+    __________________________________
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ____________________________
 
 	VK.Widgets.Group("vk_groups", {mode: 0, width: "400px", height:"400px"}, 62031628);
 
