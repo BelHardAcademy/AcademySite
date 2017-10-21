@@ -76,11 +76,11 @@
 						<label for="password">Пароль: 
                             <span class="pwStrengthMes">Пароль должен быть от 6 до 16 символов, содержать хотя бы одну цифру, букву в нижнем и верхнем регистре, любой из символов ! @ # $ & . , - _</span>
                         </label>
-						<input type="password" name="password" id="password" required pattern="^(?=.[A-Z])(?=.[!@#$&.,-_])(?=.[0-9])(?=.*[a-z]).{6,16}$" onchange="validatePass(this.value)">
+						<input type="password" name="password" id="password" required pattern="^(?=.*[A-Z])(?=.*[\!\@#\$&.,\-_])(?=.*[0-9])(?=.*[a-z]).{6,16}$" onchange="validatePass(this.value)">
 					</p>
 					<p>
 						<label for="password2">Повторите пароль: </label>
-						<input type="password" name="password2" id="password2" required pattern="^(?=.[A-Z])(?=.[!@#$&.,-_])(?=.[0-9])(?=.*[a-z]).{6,16}$" onchange="validatePass(this.value)">
+						<input type="password" name="password2" id="password2" required pattern="^(?=.*[A-Z])(?=.*[\!\@#\$&.,\-_])(?=.*[0-9])(?=.*[a-z]).{6,16}$" onchange="validatePass(this.value)">
 					</p>
 					<div id="captWrap">
 						<div id="capt" ></div>
