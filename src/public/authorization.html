@@ -100,7 +100,8 @@
 											localStorage.setItem('login', data.user.login);
 											localStorage.setItem('token', data.token);
 											localStorage.setItem('address', data.redirect);
-											localStorage.setItem('role', data.role);
+                                            localStorage.setItem('role', data.user.role);
+                                            localStorage.setItem('name', data.user.name);
 											$(location).attr('href', data.redirect);
 										}, 300);
 									} else {

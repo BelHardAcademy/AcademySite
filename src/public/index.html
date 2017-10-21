@@ -70,9 +70,9 @@
 						
 						<script>
 							if ( localStorage.getItem('login') != null){ 															//контроль присутствия пользователя в системе
-								$('.authorization').attr("title", "Вы в системе как " + localStorage.getItem('login'));
+								$('.authorization').attr("title", "Вы в системе как " + localStorage.getItem('name'));
 								$('.authorization img').attr('src','Content/img/ic_account_box_white_36dp_2x.png');
-								$('.header-text span').text(localStorage.getItem('role'));
+								$('.header-text span').text(localStorage.getItem('name'));
 							}
 						
 							$(".authorization").click(function(evt) {																//перенаправление в зависимоти от роли пользователя при клике на изображение
@@ -108,7 +108,8 @@
 											localStorage.setItem('login', data.user.login);
 											localStorage.setItem('token', data.token);
 											localStorage.setItem('address', data.redirect);
-											localStorage.setItem('role', data.role);
+                                            localStorage.setItem('role', data.user.role);
+                                            localStorage.setItem('name', data.user.name);
 											$(location).attr('href', data.redirect);
 										}, 300);
 									} else {
