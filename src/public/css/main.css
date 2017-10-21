@@ -3,6 +3,9 @@ body{
 	margin:0;
 
 }
+a.academyLocation:hover{
+	text-decoration: none;
+}
 
 .dark-div{
 	background-color: #f5f5f5;
