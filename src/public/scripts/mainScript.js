@@ -11,53 +11,30 @@ $(document).ready(function(){
 			}),
 			myPlacemark = new ymaps.Placemark(myMap.getCenter());
         myMap.geoObjects.add(myPlacemark);
-        
-            // Задаём точки мультимаршрута.
-            var pointA = [53.906552, 27.510278],
-                pointB = "Метро Молодежная, Минск",
-                /**
-                 * Создаем мультимаршрут.
-                 * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/multiRouter.MultiRoute.xml
-                 */
-                multiRoute = new ymaps.multiRouter.MultiRoute({
-                    referencePoints: [
-                        pointA,
-                        pointB
-                    ],
-                    params: {
-                        //Тип маршрутизации - пешеходная маршрутизация.
-                        routingMode: 'pedestrian'
-                    }
-                }, {
-                    // Автоматически устанавливать границы карты так, чтобы маршрут был виден целиком.
-                    boundsAutoApply: true
-                });
-                myMap.geoObjects.add(multiRoute);
-        
-            
-        
-        
+           // Задаём точки мультимаршрута.
+           var pointA = [53.906552, 27.510278],
+           pointB = "Метро Молодежная, Минск",
+           /**
+            * Создаем мультимаршрут.
+            * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/multiRouter.MultiRoute.xml
+            */
+           multiRoute = new ymaps.multiRouter.MultiRoute({
+               referencePoints: [
+                   pointA,
+                   pointB
+               ],
+               params: {
+                   //Тип маршрутизации - пешеходная маршрутизация.
+                   routingMode: 'pedestrian'
+               }
+           }, {
+               // Автоматически устанавливать границы карты так, чтобы маршрут был виден целиком.
+               boundsAutoApply: true
+           });
+           myMap.geoObjects.add(multiRoute);
+   
        
-    
-    });
-    __________________________________
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ____________________________
+	});
 
 	VK.Widgets.Group("vk_groups", {mode: 0, width: "400px", height:"400px"}, 62031628);
 
@@ -122,6 +99,7 @@ $(document).ready(function(){
             enabled: true
         }
     });
+
     
 
    
@@ -169,3 +147,22 @@ function loadPage(pid) {
         }
     });
 }
+$(function(){
+    
+    $("#phone").mask("(999) 999-9999");
+  
+  
+    $("#phone").on("blur", function() {
+        var last = $(this).val().substr( $(this).val().indexOf("-") + 1 );
+  
+        if( last.length == 5 ) {
+            var move = $(this).val().substr( $(this).val().indexOf("-") + 1, 1 );
+  
+            var lastfour = last.substr(1,4);
+  
+            var first = $(this).val().substr( 0, 9 );
+  
+            $(this).val( first + move + '-' + lastfour );
+        }
+    });
+  }); 
