@@ -32,10 +32,13 @@ For working with repository use GitFlow (http://nvie.com/posts/a-successful-git-
 7) Events (click, blur, change, ...).
 8) jQuery selectors (by id, class, attrubute, position, ...).
 9) Synchronization with callback's, promises, await.
+10) Data storages (Local storage, Session storage, 	Cookies).
 
 **HTML**
 1) Block and inline elements.
-2) Static, responsive slicing.
+2) Static vs responsive slicing.
+3) Semantic slicing.
 
 **CSS**
 1)Selectors.
+2)Pseudo-classes
