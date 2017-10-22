@@ -20,7 +20,7 @@ Site of BelHard Academy
 For working with repository use GitFlow (http://nvie.com/posts/a-successful-git-branching-model/)
 
 
-#Interview quastions
+# Interview quastions
 
 **JavaScript (JS)**
 1) Data types in JS.
