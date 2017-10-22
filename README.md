@@ -40,5 +40,5 @@ For working with repository use GitFlow (http://nvie.com/posts/a-successful-git-
 3) Semantic slicing.
 
 **CSS**
-1)Selectors.
-2)Pseudo-classes
+1) Selectors.
+2) Pseudo-classes
