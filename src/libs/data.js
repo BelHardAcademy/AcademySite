@@ -31,6 +31,7 @@ function getData(collection, filters, res, okfunc) {
     );
 }
 
+
 function getDataById(collection, objId, res, okfunc) {
     if (Array.isArray(objId)) {
         const [id, projection] = objId;
@@ -56,6 +57,21 @@ function getDataByIds(collection, objIds, res, okfunc) {
             })
         );
     });
+}
+
+function removeById(collection, objId, res, callback){
+    mongoClient.connect(config.get('mongoose:uri'), function(_err, _db) {
+    var deletedId = _db.collection(collection).deleteOne({_id: new ObjectID(objId)}, function(err, result) {
+        callback(res, err);
+        if(err){
+            _res.statusCode = 500;
+            log.error('Internal error(%d): %s', _res.statusCode, err.message);
+            return _res.send({error: 'Server error'});
+        }
+        _db.close();
+    });
+
+});
 }
 
 function fillResp(_cursorFunc, _res, _okfunc) {
@@ -174,4 +190,5 @@ module.exports.getData = getData;
 module.exports.getDataById = getDataById;
 module.exports.getDataByIds = getDataByIds;
 module.exports.saveData = saveData;
+module.exports.removeById = removeById;
 //module.exports.deleteItem = deleteItem;
