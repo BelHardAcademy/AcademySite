@@ -394,3 +394,11 @@ width: 300px;
 right: 5%;
 
 }
+.video1 {
+	height: 600px;
+	
+}
+#videoContaner {
+	display: none;
+	margin-left: 30%;
+}
