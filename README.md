@@ -18,3 +18,27 @@ Site of BelHard Academy
 8) Open link http://localhost:85.
 
 For working with repository use GitFlow (http://nvie.com/posts/a-successful-git-branching-model/)
+
+
+#Interview quastions
+
+**JavaScript (JS)**
+1) Data types in JS.
+2) Ajax.
+3) REST.
+4) Scope.
+5) Equals operators (== vs ===).
+6) Validation (HTML5, jQuery Validation).
+7) Events (click, blur, change, ...).
+8) jQuery selectors (by id, class, attrubute, position, ...).
+9) Synchronization with callback's, promises, await.
+10) Data storages (Local storage, Session storage, 	Cookies).
+
+**HTML**
+1) Block and inline elements.
+2) Static vs responsive slicing.
+3) Semantic slicing.
+
+**CSS**
+1)Selectors.
+2)Pseudo-classes
