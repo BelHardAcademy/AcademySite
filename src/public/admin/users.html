@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="../css/libs/jsgrid-theme.min.css"/>
     <link rel="stylesheet" href="../css/main.css"/>
     <script type="text/javascript" src="../js/libs.min.js"></script>
-    <!-- need gulp vendor -->
-    <!-- <script type="text/javascript" src="../js/libs/jsgrid.min.js"></script> -->
     <script src="../scripts/ipaddress.js"></script>
     <script src="../scripts/getJason.js"></script>
     <script src="../scripts/get_blocks.js"></script>
@@ -107,6 +105,7 @@
 
 <div class="main-content">
     <div id="jsGrid" class="usersGrid"></div>
+    <div class="deleteUserMessage">Пользователь был успешно удален.</div>
 </div>   
 
 
@@ -137,7 +136,7 @@
                height: "400px",
         
                //inserting: true,
-               //editing: false,
+               editing: false,
                sorting: true,
                paging: true,
                data: data,
@@ -146,12 +145,33 @@
                    { title: "Имя", type: "text", name: "name", width: 200, validate: "required" },
                    { title: "Фамилия", type: "text", name: "lastName", width: 200 },
                    { title: "Логин", type: "text", name: "login", width: 200 },
-                   { title: "Роль", type: "text", name: "role"}
-                   //{ type: "control" }
-               ]
-           });     
+                   { title: "Роль", type: "text", name: "role"},
+                   { type: "control"}
+                    ],
+
+                controller: {
+                deleteItem: function(item){
+                    $.ajax({
+                        method:"delete",
+                        url: "/api/admin/users/" + item._id,
+                        success: function(data){
+                                setTimeout(function(){
+                                    $('.deleteUserMessage').show(0).delay(3500).hide(0);  
+                                });  
+                        }
+                    })
+
+                }
+            } 
+
+                    
+                });     
                }
              });
+
+              
+
+
         });    
     </script>
     <script src="../scripts/header.js"></script>

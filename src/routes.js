@@ -564,7 +564,17 @@ function regRoutes(app) {
             );
         });  
         
-        
+        app.route('/api/admin/users/:userId')
+        .delete(function(req, res) {
+            data.removeById(
+                'siteusers',
+                req.params.userId,
+                res,
+                function(rs, dt) {
+                    return rs.send(dt);
+                }
+            );
+        }); 
 
     app.post('/oauth/token', oauth2.token);
 
