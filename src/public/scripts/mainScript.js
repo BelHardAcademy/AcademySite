@@ -133,9 +133,41 @@ $(document).ready(function(){
     $('.slick-track').magnificPopup({
         delegate: 'div',
         type: 'image',
+        
         gallery: {
             enabled: true
-        }
+         },
+         image: {
+            markup: '<div class="mfp-figure">'+
+                      '<div class="mfp-close"></div>'+
+                      '<div class="mfp-img"></div>'+
+                      '<div class="mfp-bottom-bar">'+
+                        '<div class="mfp-title"></div>'+
+                        '<div class="mfp-button-like" id="belh_like"></div>'+
+                        '<div class="mfp-counter"></div>'+
+                      '</div>'+
+                    '</div>', 
+                    
+            cursor: 'mfp-zoom-out-cur', 
+
+            titleSrc: 'title', 
+          
+            verticalFit: true, 
+          
+            tError: '<a href="%url%">The image</a> could not be loaded.'
+          },
+          
+          callbacks: {
+            change: function(item) {
+             var src = this.content.find('img')[0].src;
+             this.content.find('#belh_like').innerHTML = '';
+             VK.Widgets.Like.destroyAll();
+             var id = src.substr(src.indexOf('/', 8) + 1);
+              VK.Widgets.Like('belh_like', null, id );
+             
+            }
+          }
+
     });
 
     
