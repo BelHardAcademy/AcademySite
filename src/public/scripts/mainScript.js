@@ -35,7 +35,45 @@ $(document).ready(function(){
    
        
 	});
+         
+            if (!localStorage.getItem('promoVideoSeen')){
+                $('#videoContaner').show();
+                    
+                    $.magnificPopup.open({
+                        items: {
+                            src: '#videoContaner',
+                            type: 'inline',
+                            modal: true
+                        } 
+                        
+                        
+                    });
+                    var vid = localStorage.getItem('promoVideoCur');
+                    if ( vid != null) {
+                            $('#video1').get(0).currentTime = vid;
+                    }
+                    $('#video1').get(0).play();
+               
+                        
+                            $('#video1').on('ended', function () {
+                                localStorage.setItem('promoVideoSeen', 'ended');
+                                $.magnificPopup.close();
+                                       });
+                                       
+                                       $("#video1").on("timeupdate", function(event){
+                                        localStorage.setItem('promoVideoCur', this.currentTime );
+                                          
+                                        });
+                                    
+                                    
+                                    
+                                    
 
+                
+            }
+                
+            
+        
 	VK.Widgets.Group("vk_groups", {mode: 0, width: "400px", height:"400px"}, 62031628);
 
 	(function(d, s, id) {
