@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="slick/slick.css"/>
     <link rel="stylesheet" href="slick/slick-theme.css"/>
     <link rel="stylesheet" href="css/libs/bootstrap.css"/>
+    <link rel="stylesheet" href="css/libs/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/main.css"/>
     <link rel="stylesheet" href="css/magnific-popup.min.css"/>
     <script type="text/javascript" src="./js/libs.min.js"></script>
@@ -62,31 +63,109 @@
             </div></div>
 						
 						<div id="open" >
-							<div class="authorization">
+							<div class="authorization" id="guest" style="display: none">
 								<img src="Content/img/ic_system_update_alt_black_36dp_2x.png" width="30" alt="Sign in">
 								<div class="header-text" align="center"><span>Войти</span></div>
-							</div>
-							<div id="hiddAuth" class="hiddenArea"></div>
-            </div>
-						
+                            </div>
+                            
+                            <!-- Added -->
+                            <div class="authorization" id="authorizedUser" style="display: none">
+                                    <img class="userImg" src="Content/img/ic_system_update_alt_black_36dp_2x.png" width="30" alt="Sign in">
+                                    <a href='#' id='fileSelect'>
+                                       <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+                                    <div class="header-text" align="center"><span></span></div>
+                            </div>                              
+                            <!-- end added -->
+
+                            <div id="hiddAuth" class="hiddenArea"></div>
+                        </div>
+
+                        
+
 						
 						<script>
-							if ( localStorage.getItem('login') != null){ 															//контроль присутствия пользователя в системе
-								$('.authorization').attr("title", "Вы в системе как " + localStorage.getItem('name'));
-								$('.authorization img').attr('src','Content/img/ic_account_box_white_36dp_2x.png');
-								$('.header-text span').text(localStorage.getItem('name'));
+							if ( localStorage.getItem('login') != null){
+                                $('#authorizedUser').show();
+                                $('#guest').hide();													//контроль присутствия пользователя в системе
+                                $('.authorization').attr("title", "Вы в системе как " + localStorage.getItem('name'));
+
+                                var dataImage = localStorage.getItem('imageIdCached');
+                                if(dataImage !=null){
+                                    debugger;                                   
+                                    $('.authorization img.userImg').attr('src', dataImage);
+                                } else {
+                                    $('.authorization img.userImg').attr('src','Content/img/ic_account_box_white_36dp_2x.png');
+                                }
+
+                                $('.header-text span').text(localStorage.getItem('name'));
+
 							}
 						
-							$(".authorization").click(function(evt) {																//перенаправление в зависимоти от роли пользователя при клике на изображение
+							$(".userImg").click(function(evt) {																//перенаправление в зависимоти от роли пользователя при клике на изображение
 								if (localStorage.getItem('role') === 'admin'){
-										$(location).attr('href', localStorage.getItem('address'));				//если админ - в админку
+										$(location).attr('href', localStorage.getItem('address')); //если админ - в админку
 								} else {
 									$('#hiddAuth').slideToggle(200).load('authorization.html #authForm', function(){//если не админ - возможность авторизоваться или войти под другим логином
 										var url = window.location.hostname;
 										$("#uLogin").attr("data-ulogin", "display=panel;theme=classic;fields=first_name,last_name;providers=vkontakte,odnoklassniki,mailru,facebook;hidden=google,yandex,linkedin,wargaming;redirect_uri=http%3A%2F%2F"+ url +";mobilebuttons=0;");
 									});
 								}
-							});//end click authorization
+                            });//end click authorization
+                            
+
+                            //click on edit img icon
+                            $(".authorization #fileSelect").click(function() {
+                                var fileSelect = document.getElementById("fileSelect"),
+                                 fileElem = document.getElementById("fileElem");
+                                
+                                fileSelect.addEventListener("click", function(e) {
+                                 if (fileElem) {
+                                   fileElem.click();
+                                 }
+                                 e.preventDefault(); // prevent navigation to "#"
+                                }, false);
+							});
+
+                            function uploadFile(file) {
+                                const cloudName = 'dji0izouc';
+                                const unsignedUploadPreset = 'aoqnypzk';
+                                 var url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+                                 var xhr = new XMLHttpRequest();
+                                 var fd = new FormData();
+                                 xhr.open('POST', url, true);
+                                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+                                
+                                 xhr.onreadystatechange = function(e) {
+                                   if (xhr.readyState == 4 && xhr.status == 200) {
+                                     // File uploaded successfully
+                                     var response = JSON.parse(xhr.responseText);                                     
+                                     var url = response.secure_url;
+                                     // Create a thumbnail of the uploaded image, with 150px width
+                                     var tokens = url.split('/');
+                                     tokens.splice(-2, 0, 'w_40,h_40,c_scale');
+                                     var imgHref = tokens.join('/');
+                                     $('.userImg').attr('src', imgHref);
+                                    localStorage.setItem('imageIdCached', imgHref);
+                                   }
+                                 };
+                                
+                                 fd.append('upload_preset', unsignedUploadPreset);
+                                 fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
+                                 fd.append('file', file);
+                                 xhr.send(fd);
+                                }
+                                
+                                // *********** Handle selected files ******************** //
+                                var handleFiles = function(files) {
+                                 for (var i = 0; i < files.length; i++) {
+                                   uploadFile(files[i]);                                  
+                                 }
+                                };
+
+
 							
 							$(document).on('click', function(evt) {																	//закрыть всплывающее меню авторизации по клику на любом свободном месте
 								if (!$(evt.target).closest("#open").length) {

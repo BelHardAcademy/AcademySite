@@ -5,7 +5,7 @@ var gulp    = require('gulp'),
 
     gulp.task('vendor', function() {
         return gulp.src([ // Берем все необходимые библиотеки
-            'public/js/libs/*.js', // Берем js файлы
+            'public/js/libs/*.js'
             ])
             .pipe(concat('libs.min.js')) // Собираем их в кучу в новом файле libs.min.js
             .pipe(uglify()) // Сжимаем JS файл
