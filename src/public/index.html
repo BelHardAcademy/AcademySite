@@ -62,8 +62,8 @@
 						
 						<div id="open" >
 							<div class="authorization" id="guest" style="display: none">
-								<img src="Content/img/ic_system_update_alt_black_36dp_2x.png" width="30" alt="Sign in">
-								<div class="header-text" align="center"><span>Войти</span></div>
+								<img class="userImg" src="Content/img/ic_system_update_alt_black_36dp_2x.png" width="30" alt="Sign in">
+								<div class="header-text"><span>Войти</span></div>
                             </div>
                             
                             <!-- Added -->
@@ -73,7 +73,7 @@
                                        <i class="fa fa-pencil"></i>
                                     </a>
                                     <input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
-                                    <div class="header-text" align="center"><span></span></div>
+                                    <div class="header-text"><span></span></div>
                             </div>                              
                             <!-- end added -->
 
@@ -84,22 +84,21 @@
 
 						
 						<script>
-							if ( localStorage.getItem('login') != null){
+							if (localStorage.getItem('login') != null){
                                 $('#authorizedUser').show();
-                                $('#guest').hide();													//контроль присутствия пользователя в системе
+								//контроль присутствия пользователя в системе
                                 $('.authorization').attr("title", "Вы в системе как " + localStorage.getItem('name'));
-
                                 var dataImage = localStorage.getItem('imageIdCached');
-                                if(dataImage !=null){
-                                    debugger;                                   
+                                if(dataImage !=null){                                  
                                     $('.authorization img.userImg').attr('src', dataImage);
                                 } else {
                                     $('.authorization img.userImg').attr('src','Content/img/ic_account_box_white_36dp_2x.png');
                                 }
-
                                 $('.header-text span').text(localStorage.getItem('name'));
-
-							}
+							} else {
+                                $('#guest').show();
+                                
+                            }
 						
 							$(".userImg").click(function(evt) {																//перенаправление в зависимоти от роли пользователя при клике на изображение
 								if (localStorage.getItem('role') === 'admin'){
