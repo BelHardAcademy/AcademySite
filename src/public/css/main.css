@@ -394,7 +394,6 @@ width: 300px;
 right: 5%;
 }
 
-/* delete User Message */
 .deleteUserMessage{
 	display: none;
 	position: fixed;
@@ -409,7 +408,14 @@ right: 5%;
 	border: 1px solid #5BE935;
 	border-radius: 5px;
 }
-
+.video1 {
+	height: 600px;
+	
+}
+#videoContaner {
+	display: none;
+	margin-left: 30%;
+}
 .fa.fa-pencil{
 	font-size: 16px;
 	color: #000;

@@ -563,6 +563,17 @@ function regRoutes(app) {
                 }
             );
         });  
+        app.route('/api/admin/roles')
+        .get(function(req, res) {
+            data.getData(
+                'roles',
+                {},
+                res,
+                function(rs, dt) {
+                    return rs.send(dt);
+                }
+            );
+        }); 
         
         app.route('/api/admin/users/:userId')
         .delete(function(req, res) {
@@ -580,6 +591,9 @@ function regRoutes(app) {
 
     app.get('/adminUsers', function (req, res) {
         res.sendfile('./public/admin/users.html');
+    });
+    app.get('/adminRoles', function (req, res) {
+        res.sendfile('./public/admin/roles.html');
     });
 
     app.get('/admin:page', function (req, res) {

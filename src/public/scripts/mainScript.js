@@ -35,7 +35,45 @@ $(document).ready(function(){
    
        
 	});
+         
+            if (!localStorage.getItem('promoVideoSeen')){
+                $('#videoContaner').show();
+                    
+                    $.magnificPopup.open({
+                        items: {
+                            src: '#videoContaner',
+                            type: 'inline',
+                            modal: true
+                        } 
+                        
+                        
+                    });
+                    var vid = localStorage.getItem('promoVideoCur');
+                    if ( vid != null) {
+                            $('#video1').get(0).currentTime = vid;
+                    }
+                    $('#video1').get(0).play();
+               
+                        
+                            $('#video1').on('ended', function () {
+                                localStorage.setItem('promoVideoSeen', 'ended');
+                                $.magnificPopup.close();
+                                       });
+                                       
+                                       $("#video1").on("timeupdate", function(event){
+                                        localStorage.setItem('promoVideoCur', this.currentTime );
+                                          
+                                        });
+                                    
+                                    
+                                    
+                                    
 
+                
+            }
+                
+            
+        
 	VK.Widgets.Group("vk_groups", {mode: 0, width: "400px", height:"400px"}, 62031628);
 
 	(function(d, s, id) {
@@ -95,9 +133,41 @@ $(document).ready(function(){
     $('.slick-track').magnificPopup({
         delegate: 'div',
         type: 'image',
+        
         gallery: {
             enabled: true
-        }
+         },
+         image: {
+            markup: '<div class="mfp-figure">'+
+                      '<div class="mfp-close"></div>'+
+                      '<div class="mfp-img"></div>'+
+                      '<div class="mfp-bottom-bar">'+
+                        '<div class="mfp-title"></div>'+
+                        '<div class="mfp-button-like" id="belh_like"></div>'+
+                        '<div class="mfp-counter"></div>'+
+                      '</div>'+
+                    '</div>', 
+                    
+            cursor: 'mfp-zoom-out-cur', 
+
+            titleSrc: 'title', 
+          
+            verticalFit: true, 
+          
+            tError: '<a href="%url%">The image</a> could not be loaded.'
+          },
+          
+          callbacks: {
+            change: function(item) {
+             var src = this.content.find('img')[0].src;
+             this.content.find('#belh_like').innerHTML = '';
+             VK.Widgets.Like.destroyAll();
+             var id = src.substr(src.indexOf('/', 8) + 1);
+              VK.Widgets.Like('belh_like', null, id );
+             
+            }
+          }
+
     });
 
     

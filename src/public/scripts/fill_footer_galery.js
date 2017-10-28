@@ -19,7 +19,10 @@
 
             footer_photogalery.appendChild(div);
         });
-           
+        $('.bh-iframe').magnificPopup({
+            type: 'iframe'
+        
+        });
     
 
     }
