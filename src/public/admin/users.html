@@ -163,9 +163,8 @@
                    { title: "Роль", type: "text", name: "role"},
                    { type: "control"}
                     ],
-
                 controller: {
-                deleteItem: function(item){
+                    deleteItem: function(item){
                     $.ajax({
                         method:"delete",
                         url: "/api/admin/users/" + item._id,
@@ -174,51 +173,7 @@
                                     $('.deleteUserMessage').show(0).delay(3500).hide(0);  
                                 });  
                         }
-                    })
-
-                        fields: [{
-                                title: "Имя",
-                                type: "text",
-                                name: "name",
-                                width: 200,
-                                validate: "required"
-                            },
-                            {
-                                title: "Фамилия",
-                                type: "text",
-                                name: "lastName",
-                                width: 200
-                            },
-                            {
-                                title: "Логин",
-                                type: "text",
-                                name: "login",
-                                width: 200
-                            },
-                            {
-                                title: "Роль",
-                                type: "text",
-                                name: "role"
-                            },
-                            {
-                                type: "control"
-                            }
-                        ],
-
-                        controller: {
-                            deleteItem: function (item) {
-                                $.ajax({
-                                    method: "delete",
-                                    url: "/api/admin/users/" + item._id,
-                                    success: function (data) {
-                                        setTimeout(function () {
-                                            $('.deleteUserMessage')
-                                                .show(0).delay(3500)
-                                                .hide(0);
-                                        });
-                                    }
-                                })
-                            },
+                    })},
                             loadData: function (filter) {
 
                                    var pageIndex = filter.pageIndex-1,
