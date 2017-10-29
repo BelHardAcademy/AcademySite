@@ -420,3 +420,8 @@ right: 5%;
 	font-size: 16px;
 	color: #000;
 }
+
+input#searchByName {
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
