@@ -2,8 +2,18 @@
 	padding: 0;
 	cursor: pointer;
 	position: absolute;
-	right: 5px;
+	right: 30px;
 	top: 13px;
+}
+.authorization#exit1 {
+	
+	right: 0px;
+	
+}
+.authorization#guest {
+	
+	right: 35px;
+	
 }
 
 #hiddAuth{
