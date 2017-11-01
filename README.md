@@ -1,4 +1,4 @@
-# AcademySite
+# Academy Site
 Site of BelHard Academy
 
 **Using tools**
