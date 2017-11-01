@@ -1,0 +1,23 @@
+{
+  "port" : 80,
+  "detail-error": 1,
+  "security": {
+    "tokenLife": 3600,
+    "crypto-key": "ABRAKADABRA",
+    "allow-post": {
+      "reqCourse": 1,
+      "mailDelivery": 1
+    }
+  },
+  "mongoose": {
+    "uri": "mongodb://localhost/test"
+  },
+  "redirect": {
+    "admin": "/adminpages",
+    "client": "/"
+  } ,
+  "token": {
+    "secret": "R1pqTlPx7BmvJgoy2KVKP2FSAQLlCe5NG9sGrx3JRc5FFilVoh55EKpl7NwrvFwAZKy1R7r5RVZPgEBLyLs8B7APMaKHpieRW1SjBpSvmyx7sxVxd1gAhmL2I0IEjL",
+    "expiresIn": "7d"
+  }
+}

@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Документ без названия</title>
+<link href="../css/s_bis.css" rel="stylesheet" type="text/css" />
+<link href="../css/style2.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="wrapper">
+
+<div class="block2">
+ 
+  <h2><span class="blue"></span> <span class="black"></span></h2>
+  <span class="gray"></span>
+  
+<div class="block2-content">
+
+ <div id="5879f90ccbb5010884d5c160" data-type="courseDirectory"></div>
+  
+ <script id="" type="text/template">
+  <h2><span class="blue"><%= ... %></span> <span class="black"><%= ... %></span></h2>
+  <span class="gray"><%= ... %></span>
+ </script>
+ 
+
+ <script id="courseDirectory" type="text/template">
+   <div class="block2-item "> 
+    <div class="block2-item-content" style="background-color:<%= backcolor %>">
+     <img src="http://7.140.158.178:85/<%= pictLink %>" width="70" alt="png"/></br>
+     <span class="white"><%= name %></span>
+    </div>
+    <div class="link">
+     <a class="gray" href="#">+ Подробнее...</a>
+   </div>
+   </div>
+ </script>
+ 
+
+ </div> 
+   
+  
+ 
+</div>
+</div>
+
+<script src="../js/libs.min.js"></script>
+<script src="../js/underscore-min.js"></script>
+<!--<script src="../js/courses.js"></script>-->
+<script src="../js/gor_list2.js"></script>
+
+<script>
+//var api = 'http://192.168.62.5:85/api';
+var api = 'http://7.140.158.178:85/api';
+$.ajax({
+          url: api + '/block/link/courseDirectory',
+          type: "GET",
+          dataType : "json",
+          success:function(data) {
+			  $('#5879f90ccbb5010884d5c160').gor_list(api, data.block.struct.options, data.block.moduleIds );
+		}
+        });
+</script>
+</body>
+</html>

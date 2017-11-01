@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link href="../css/s_bis.css"rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../slick/slick.css"/>
+    <link rel="stylesheet" href="../slick/slick-theme.css"/>
+    <link rel="stylesheet" href="../css/libs/bootstrap.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <script type="text/javascript" src="./js/libs.min.js"></script>
+    <script src="../scripts/ipaddress.js"></script>
+    <script src="../scripts/getJason.js"></script>
+    <script src="../scripts/get_blocks.js"></script>
+    <script src="../scripts/create_block.js"></script>
+    <script src="../scripts/mainScript.js"></script>
+    <script src="../scripts/fill_navigation_menu.js"></script>
+    <script src="../js/underscore-min.js"></script>
+    <link href="../css/style2.css" rel="stylesheet" type="text/css" />
+    <link href="../css/styles-adm.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<!--                         header                                                                         -->
+<div class="wrapper">
+    <header>
+        <div class="header">
+            <div class="menu-open"></div>
+            <div class="contact">
+                <a href="/home#map" class="academyLocation">
+                    <div class="contact-item contact-ad">
+                        <img src="../Content/img/location.png" width="20" alt="location">
+                        <div class="header-text">г. Минск, пер. 4-ый Загородный, д.56-а
+                        </div>
+                    </div>
+                </a>
+                <div class="contact-item contact-em">
+                    <img src="../Content/img/e-mail.png" width="26" alt="location">
+                    <div class="header-text">it-academy@belhard.com
+                        <p>intern@belhard.com</p>
+                    </div>
+                </div>
+                <div class="contact-item contact-tel">
+                    <img src="../Content/img/tel.png" width="20" alt="location">
+                    <div class="header-text" align="right">Учебный отдел: +375(29)54 654 54 <br>
+                        +375(44)54 654 54
+                        </br>Центр стажировок: +375(44)54 248 21</div>
+                </div>
+            </div>
+        </div>
+        <div class="nav">
+            <a href="/home"><img src="../Content/img/logo.png" width="144" alt="logo"></a>
+            <ul class="menu" id="navigation_menu"></ul>
+        </div>
+    </header>
+</div>
+
+<!--                               Main Content                                       -->
+
+	<div class="main-content">
+      <div class="formwrapper">
+				<h1>Регистрация</h1>
+        <form id="zap2" name="regForm">
+					<p>
+						<label for="name">Имя:</label>
+						<input type="text" name="name" id="name" required autofocus pattern="\D+">
+					</p>
+					<p>
+						<label for="lastName">Фамилия: </label>
+						<input type="text" name="lastName" id="lastName" required pattern="\D+">
+					</p>
+					<p>
+						<label for="login">E-mail: </label>
+						<input type="email" name="login" id="login" required>
+					</p>
+					<p>
+						<label for="password">Пароль: 
+                            <span class="pwStrengthMes">Пароль должен быть от 6 до 16 символов, содержать хотя бы одну цифру, букву в нижнем и верхнем регистре, любой из символов ! @ # $ & . , - _</span>
+                        </label>
+						<input type="password" name="password" id="password" required pattern="^(?=.*[A-Z])(?=.*[\!\@#\$&.,\-_])(?=.*[0-9])(?=.*[a-z]).{6,16}$" onchange="validatePass(this.value)">
+					</p>
+					<p>
+						<label for="password2">Повторите пароль: </label>
+						<input type="password" name="password2" id="password2" required pattern="^(?=.*[A-Z])(?=.*[\!\@#\$&.,\-_])(?=.*[0-9])(?=.*[a-z]).{6,16}$" onchange="validatePass(this.value)">
+					</p>
+					<div id="captWrap">
+						<div id="capt" ></div>
+						<input id="capcha" type="text" name="capcha" required pattern="\w+"/>
+						<div id="update-capcha">Обновить</div>
+					</div>
+					<p class="button">
+						<input type="submit" name="button" class="registrationButton" id="send-zap2" value="Отправить" >
+					</p>
+					<script type="text/javascript">
+                        function getCaptcha (){
+                            $.ajax({
+                                url: api + '/captcha?width=100&height=50&len=8',
+                                type: "GET",
+                                dataType : "json",
+                                success:  function (data) {
+									console.log("+++");
+                                    $('#capt').html('<img src="'+data.data+'">');
+                                }
+                            });
+														
+                        }
+                        
+                        getCaptcha();   
+
+                        $('#update-capcha').on('click', function(){
+                            getCaptcha();
+                        })
+                    </script>
+				</form>
+	</div>
+    
+    
+
+
+	<script>
+		
+		function validatePass(input){
+    //проверка правильности повторения пароля
+
+ 			if ($('#password').val() != $('#password2').val()){
+				$('#password2')[0].setCustomValidity("Неправильный повтор пароля!");
+			} else {
+				$('#password2')[0].setCustomValidity("");
+			}
+		};//end validatePass
+		
+		
+		$("form[name=regForm]").submit(function() {																				//процесс регистрации
+			var formData = {																											//сбор данных из формы в формате JSON
+				name : document.getElementById("name").value,
+				lastName : document.getElementById("lastName").value,
+				login : document.getElementById("login").value,
+				password : document.getElementById("password").value
+			};
+            
+
+            $.post("/api/user/register",formData,processData);
+			
+			function processData(data) {																					//обработка ответа сервера
+				if (data.status === 0) {																						//успешная регистрация
+					$('.formwrapper').html('<h1>Вы зарегистрированы!</h1><br><h2>Авторизуйтесь, пожалуйста!</h2>');
+					setTimeout(function() {
+						$(location).attr('href', "authorization.html");
+					}, 300);
+				} else {																														//ошибка при регистрации
+					$('.msg').remove();
+					console.log(data);
+					$('.button').before('<p class="msg">' + data.error + '. Попробуйте еще раз.</p>');
+				}//end if
+			};// end processData
+			
+			return false;
+			
+		});// end submit
+	</script>
+
+<div class="window">
+    <div class="info-footer-block dark-div" align="center">
+        ИТ-Академия <img src="../Content/img/logo.png" width="100" alt="logo"><br>
+        ООО "Европейский центр разработки ПО"<br>
+    </div>
+    <div class="info-footer-block light-div" align="center">
+        &#169; 1994-2016 Группа компаний "Белхард"
+    </div>
+
+</div>
+
+
+<script src="../scripts/header.js"></script>
+</body>
+</html>

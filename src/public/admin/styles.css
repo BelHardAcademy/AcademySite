@@ -1,0 +1,244 @@
+a {
+  text-decoration: none;
+}
+
+.redactorHeader {
+  position:   relative;
+ }
+
+.redactorHeaderItem {
+  display:  block; 
+  margin-bottom:  5px;
+ }
+
+.redactorHeaderLabelLink {
+  bottom:   2px;
+  position:   relative;
+}
+
+h1	{
+  text-align: center;
+  color: #000;
+  margin-top: 0;
+ }
+
+h2 {
+  text-align: center;
+  color: #3F51B5;
+ }
+
+.redactorBlockContainer {
+  text-align: center;
+}
+
+.redactorBlockContainerBtnBlock {
+  width: 30px;
+  display:  inline-block;
+  vertical-align:   top;
+  padding-top: 83px;
+}
+
+.redactorBlockContainerBtnBlock button:first-child {
+  margin-bottom: 10px;
+}
+
+.redactorButtonBlocks,
+.redactorButton {
+  display:  block;
+}
+
+.redactorButtonBlocks {
+  height:   30px;
+  width:  30px;
+  margin-bottom: 30px;
+}
+
+.redactorButton:hover,
+.redactorButtonBlocks:hover {
+  cursor: pointer;
+}
+
+.redactorMoveButtonBlocks-right {
+  background-image: url(images/icons/arrow_right.png);
+  background-repeat:  no-repeat;
+  background-position:  center center;
+}
+
+.redactorMoveButtonBlocks-left {
+  background-image: url(images/icons/arrow_left.png);
+  background-repeat:  no-repeat;
+  background-position:  center center;
+}
+
+.redactorMoveButtonBlocks-up {
+  background-image: url(images/icons/arrow_up.png);
+  background-repeat:  no-repeat;
+  background-position:  center center;
+}
+
+.redactorMoveButtonBlocks-down {
+  background-image: url(images/icons/arrow_down.png);
+  background-repeat:  no-repeat;
+  background-position:  center center;
+}
+
+.redactorSelectionGallery {
+  text-align: center;
+}
+
+.redactorGalleryContainer {
+  text-align: center;
+}
+
+.redactorSelectionFileGallery {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.redactorAddFileGallery,
+.redactorDeleteFileGallery {
+  display: inline-block;
+}
+
+.galleriesList {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  overflow: auto;
+  width: 300px;
+}
+
+.redactorDeleteFileGallery {
+  display: inline-block;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.autoScroll {
+  display: block;
+  margin: 0 auto;
+}
+
+.setIntervalBlock {
+  display: none;
+}
+
+.intervalUpBtn {
+  display: inline-block;
+  vertical-align: bottom;  
+  height:   20px;
+  width:  20px;
+  background-image: url(images/icons/arrow_up.png);
+  background-repeat:  no-repeat;
+  background-position:  center center;
+}
+
+.intervalDownBtn {
+  display: inline-block;
+  vertical-align: bottom;
+  height:   20px;
+  width:  20px;
+   background-image: url(images/icons/arrow_down.png);
+  background-repeat:  no-repeat;
+  background-position:  center center;
+}
+.intervalUpBtn:hover,
+.intervalDownBtn {
+  cursor: pointer;
+}
+
+.redactorSubmitBtnBlock {
+  padding-top: 20px;
+  text-align: right;
+
+}
+
+.submitBtn {
+  display: inline-block;
+  vertical-align: top;
+  background-color: #264796;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.submitBtn:hover {
+  cursor: pointer;
+}
+
+.redactorButton,
+.redactorGalleryBtn {
+  padding: 5px 10px;
+  background-color: #264796;
+  color: #fff;
+  border-radius: 20px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.loadedImgBlock {
+  text-align: center;
+}
+
+.redactorButton-delete {
+  margin-bottom:  10px;
+  display: none;
+}
+
+.redactorBlocksFromServer,
+.redactorBlocksFromPage {
+  overflow: auto;
+  width: 320px;
+  display: inline-block;
+}
+
+.redactorPagesCreateButton {
+  margin-bottom: 10px;
+}
+
+.deleteBtn {
+position: absolute;
+left: 115px;
+top: 5px;
+width: 32px;
+height: 32px;
+opacity: 0.3;
+}
+
+.deleteBtn:hover {
+opacity: 1;
+cursor: pointer;
+}
+
+.deleteBtn:before, .deleteBtn:after {
+position: absolute;
+left: 15px;
+content: ' ';
+height: 33px;
+width: 2px;
+background-color: #333;
+}
+
+.deleteBtn:before {
+transform: rotate(45deg);
+}
+
+.deleteBtn:after {
+transform: rotate(-45deg);
+}
+
+.redactorButton,
+.redactorGalleryBtn,
+#redactorTitle,
+#redactorSubTitle,
+#redactorLink {
+  padding: 5px 25px;
+  border: none;
+  border-bottom: 1px solid #999;
+  margin-bottom: 10px;
+}
+.send-zap2 {
+  position: none;
+  margin-left: 0 auto;
+}

@@ -1,0 +1,128 @@
+.authorization {
+	padding: 0;
+	cursor: pointer;
+	position: absolute;
+	right: 30px;
+	top: 13px;
+}
+.authorization#exit1 {
+	
+	right: 0px;
+	
+}
+.authorization#guest {
+	
+	right: 35px;
+	
+}
+
+#hiddAuth{
+	background-color:#dde0ed;
+	border:1px solid #ffffff;
+	position: absolute;
+	right: 10px;
+	top: 63px;
+	z-index: 100;
+}
+.hiddenArea{
+	display: none;
+}
+#uLogin{
+	margin:10px;
+	text-align: center;
+}
+#hiddAuth form {
+	padding: 25px 30px 15px;
+	color:#666;
+	font-size:11px
+}
+#hiddAuth label {
+	width: 60px;
+	text-align:left;
+	display: inline-block;
+}
+#hiddAuth .button {
+	text-align: center;	
+	margin:10px;
+}
+
+.authorization_nav {
+	top:0px;
+}
+.formwrapper{
+	width:60%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:80px;
+	height:450px;
+}
+.formwrapper h1 {
+	text-align: center;	
+}
+.formwrapper form {
+	margin-top:40px;
+}
+.formwrapper label {
+	width:30%;
+	text-align:left;
+	margin: 0 15px 0 0;
+	display: inline-block;
+}
+.formwrapper input[type ="text"], 
+.formwrapper input[type ="email"],
+.formwrapper input[type ="password"]{
+	width:65%;
+}
+.formwrapper .button {
+	text-align: center;	
+	margin-top:15px;
+}
+@media (max-width: 800px) {
+	.formwrapper{
+		height:auto;
+	}
+}
+
+#captWrap #capt{
+	margin:0 20px;      
+	width:100px;
+	height:50px;
+	display:inline-block;
+	vertical-align:top;
+	}
+#captWrap #capcha{
+	border:1px solid #999;
+	width:100px;
+	height:30px;
+	display:inline-block;
+  vertical-align:top;
+	padding-left:15px;
+	margin-left:20px;
+}
+#captWrap #update-capcha{
+	position:relative;
+	color:#999;
+	font-size:11px;
+	-border:1px solid #999;
+	left:185px;
+	bottom:15px; 
+	padding:1px;
+	border-radius:9px;
+	cursor:pointer;
+	text-decoration:underline;
+	}
+
+.alert {
+	position:absolute;
+	padding:2px 10px;
+	margin:5px;
+	left:50%;
+	background-color:#DFDFDF;
+	border:1px solid #FF5555;
+	color:#FF5555;
+	text-align:center;
+}
+
+.msg{
+	color:red;
+}
